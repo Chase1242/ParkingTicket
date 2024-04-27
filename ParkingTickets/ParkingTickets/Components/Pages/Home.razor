@@ -1,0 +1,61 @@
+﻿@page "/"
+@using ParkingTickets.Database
+@using ParkingTickets.Database.Entities
+@inject WsuParkingTicketsContext wsuParkingDbContext;
+@rendermode InteractiveServer
+
+<PageTitle>Report a parket ticket!</PageTitle>
+
+<h1>Submit parking ticket information here</h1>
+
+<form method="POST">
+    <h2>Required information:</h2>
+    <input type="datetime-local" placeholder="Time of Ticket" required />
+    <select required @onchange="AddSelectedLocation">
+        <option selected value="0" disabled>None</option>
+        @foreach (Location location in this.TopLevelLocations)
+        {
+            <option value="@location.LocationId">@location.Name</option>  
+        }
+    </select>
+
+    @foreach (Location location in this.SelectedLocations)
+    {
+        @if (this.wsuParkingDbContext.Locations.Any(loc => loc.LocationCategoryId == location.LocationId))
+        {
+            <select required @onchange="AddSelectedLocation">
+                <option selected value="0" disabled>None</option>
+                @foreach (Location subLocation in GetLocations(location.LocationId))
+                {
+                    <option value="@subLocation.LocationId">@subLocation.Name</option>
+                }
+            </select>
+        }
+    }
+</form>
+
+@code {
+    protected List<Location> SelectedLocations { get; set; } = new();
+
+    protected IEnumerable<Location> TopLevelLocations { get; set; }
+
+    protected override Task OnParametersSetAsync()
+    {
+        this.TopLevelLocations = this.GetLocations(null);
+        return base.OnParametersSetAsync();
+    }
+
+    private IEnumerable<Location> GetLocations(int? locationCategoryId)
+    {
+        if (locationCategoryId.HasValue)
+            return this.wsuParkingDbContext.Locations.Where(loc => loc.LocationCategoryId == locationCategoryId && loc.LocationId != locationCategoryId).ToList();
+        else
+            return this.wsuParkingDbContext.Locations.Where(loc => loc.LocationCategoryId == null).ToList();
+    }
+
+    private void AddSelectedLocation(ChangeEventArgs e)
+    {
+        int.TryParse(e.Value?.ToString(), out int locationId);
+        this.SelectedLocations.Add(this.wsuParkingDbContext.Locations.Find(locationId));
+    }
+}

@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ParkingTickets.Database\ParkingTickets.Database.csproj" />
     <ProjectReference Include="..\ParkingTickets.Shared\ParkingTickets.Shared.csproj" />
-    <ProjectReference Include="..\ParkingTickets\ParkingTickets\ParkingTickets.csproj" />
   </ItemGroup>
 
 </Project>

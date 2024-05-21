@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ParkingTickets.Database.Entities;
 
 public partial class Ticket
 {
+    [Key]
     public int TicketId { get; set; }
 
     public DateTime TimeOfTicket { get; set; }

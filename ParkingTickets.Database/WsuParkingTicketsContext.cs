@@ -35,7 +35,7 @@ public partial class WsuParkingTicketsContext : DbContext
 
         modelBuilder.Entity<Ticket>(entity =>
         {
-            entity.Property(e => e.TicketId).ValueGeneratedNever();
+            entity.Property(e => e.TicketId).ValueGeneratedOnAdd();
             entity.Property(e => e.TicketNumber).HasMaxLength(50);
             entity.Property(e => e.TicketingOfficerName).HasMaxLength(100);
             entity.Property(e => e.ViolationType).HasMaxLength(100);

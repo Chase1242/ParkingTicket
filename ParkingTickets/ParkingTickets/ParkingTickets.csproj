@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ParkingTickets.Database\ParkingTickets.Database.csproj" />
+    <ProjectReference Include="..\..\ParkingTickets.Shared\ParkingTickets.Shared.csproj" />
+    <ProjectReference Include="..\..\ParkingTickets.Statistics\ParkingTickets.Statistics.csproj" />
     <ProjectReference Include="..\ParkingTickets.Client\ParkingTickets.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.4" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />

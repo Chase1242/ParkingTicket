@@ -12,8 +12,8 @@ using ParkingTickets.Database;
 namespace ParkingTickets.Database.Migrations
 {
     [DbContext(typeof(WsuParkingTicketsContext))]
-    [Migration("20240427214322_AddInLocStuff")]
-    partial class AddInLocStuff
+    [Migration("20240521015804_Ffs")]
+    partial class Ffs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,10 +51,12 @@ namespace ParkingTickets.Database.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<DateTime>("RecordInactive")
+                    b.Property<DateTime?>("RecordInactive")
                         .HasColumnType("datetime2");
 
                     b.HasKey("LocationId");
+
+                    b.HasIndex("LocationCategoryId");
 
                     b.ToTable("Locations");
                 });
@@ -89,6 +91,15 @@ namespace ParkingTickets.Database.Migrations
                     b.ToTable("Tickets");
                 });
 
+            modelBuilder.Entity("ParkingTickets.Database.Entities.Location", b =>
+                {
+                    b.HasOne("ParkingTickets.Database.Entities.Location", "ParentLocation")
+                        .WithMany("ChildTickets")
+                        .HasForeignKey("LocationCategoryId");
+
+                    b.Navigation("ParentLocation");
+                });
+
             modelBuilder.Entity("ParkingTickets.Database.Entities.Ticket", b =>
                 {
                     b.HasOne("ParkingTickets.Database.Entities.Location", "Location")
@@ -102,6 +113,8 @@ namespace ParkingTickets.Database.Migrations
 
             modelBuilder.Entity("ParkingTickets.Database.Entities.Location", b =>
                 {
+                    b.Navigation("ChildTickets");
+
                     b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618

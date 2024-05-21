@@ -58,4 +58,16 @@
         int.TryParse(e.Value?.ToString(), out int locationId);
         this.SelectedLocations.Add(this.wsuParkingDbContext.Locations.Find(locationId));
     }
+
+    private async Task SeedInfo()
+    {
+        IEnumerable<Ticket> tickets = SeedData.Seed(10000);
+        foreach (var ticket in tickets)
+        {
+            this.wsuParkingDbContext.Tickets.Add(ticket);
+            await this.wsuParkingDbContext.SaveChangesAsync();
+
+            this.wsuParkingDbContext.ChangeTracker.Clear();
+        }
+    }
 }

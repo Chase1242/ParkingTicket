@@ -7,6 +7,8 @@ namespace ParkingTickets.Database.Entities;
 
 public partial class Location
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]   
     public int LocationId { get; set; }
 
     public string Name { get; set; } = null!;

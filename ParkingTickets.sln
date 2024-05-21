@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingTickets.Client", "Pa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingTickets.Database", "ParkingTickets.Database\ParkingTickets.Database.csproj", "{55E0BA30-E8D5-4108-A7E9-0ACE669FB5EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingTickets.Shared", "ParkingTickets.Shared\ParkingTickets.Shared.csproj", "{0E09F4A2-2639-48B6-82E6-F0B5D1382D87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingTickets.Shared", "ParkingTickets.Shared\ParkingTickets.Shared.csproj", "{0E09F4A2-2639-48B6-82E6-F0B5D1382D87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingTickets.Statistics", "ParkingTickets.Statistics\ParkingTickets.Statistics.csproj", "{73DA6C5D-E00C-4197-8C46-9EC098D76D72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingTickets.Statistics", "ParkingTickets.Statistics\ParkingTickets.Statistics.csproj", "{73DA6C5D-E00C-4197-8C46-9EC098D76D72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

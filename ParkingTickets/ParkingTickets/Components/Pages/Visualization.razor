@@ -1,0 +1,47 @@
+﻿@page "/visualization"
+@using System.Diagnostics
+@inject WsuParkingTicketsContext wsuParkingDbContext;
+@rendermode InteractiveServer
+
+<ApexChart TItem="Data"
+           Title="Ticket by time of day">
+
+    <ApexPointSeries TItem="Data"
+                     Items="this.Buckets"
+                     Name="Ticket count"
+                     SeriesType="SeriesType.Bar"
+                     XValue="@(e => (e.Bucket))"
+                     YValue="@(e => e.Count)"
+                     OrderByDescending="e=>e.Y" />
+
+</ApexChart>
+
+@code {
+    protected IEnumerable<Ticket> Tickets { get; set; }
+    protected List<Data> Buckets { get; set; } 
+    protected override async Task OnParametersSetAsync()
+    {
+        this.Buckets = new();
+        foreach (var bucket in Enumerable.Range(0, 24 * 60 / 5))
+        {
+            this.Buckets.Add(new Data { Bucket = bucket, Count = 0 });
+        }
+
+        foreach (var ticket in this.wsuParkingDbContext.Tickets.ToList())
+        {
+            double minute = ticket.TimeOfTicket.TimeOfDay.TotalMinutes;
+            minute = Math.Round(minute);
+            minute /= 5;
+            minute = Math.Round(minute);
+            this.Buckets.First(buck => buck.Bucket == minute).Count += 1;
+        }
+
+        base.OnParametersSetAsync();
+    }
+
+    public class Data
+    {
+        public int Bucket { get; set; }
+        public int Count { get; set; }
+    }
+}
